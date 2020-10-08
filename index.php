@@ -26,32 +26,44 @@
         <span>Текущая дата на php -</span>
         <?php echo date("d/m/Y");?>
     </div>
-    <div class="data_ya container" >
-        <?php
-        // с кодировкой возможны проблемы, поэтому если вдруг появятся каркозябры, попробуйте добавить следующую строчку кода
-        header('Content-Type: text/html; charset=utf-8');
+    <div class=" container" >
+        <div class="card">
+            <h5 class="card-header">Погода</h5>
+            <div class="card-body">
+                <h5 class="card-title">Текущая дата <?php echo date("d/m/Y");?></h5>
+                <div class="data_ya">
+                    <p class="card-text"><span>Температура за окном  </span>
+                        <?php
+                        // с кодировкой возможны проблемы, поэтому если вдруг появятся каркозябры, попробуйте добавить следующую строчку кода
+                        header('Content-Type: text/html; charset=utf-8');
 
-        // сторонняя страница сайта, с которой будем брать контент.
-        $content = file_get_contents('http://yandex.ru');
+                        // сторонняя страница сайта, с которой будем брать контент.
+                        $content = file_get_contents('http://yandex.ru');
 
-        // определяем начало необходимого фрагмента кода, до которого мы удалим весь контент
-        $pos = strpos($content, '<div class="weather__temp">');
+                        // определяем начало необходимого фрагмента кода, до которого мы удалим весь контент
+                        $pos = strpos($content, '<div class="weather__temp">');
 
-        // удаляем все до нужного фрагмента
-        $content = substr($content, $pos);
+                        // удаляем все до нужного фрагмента
+                        $content = substr($content, $pos);
 
-        // находим конец необходимого фрагмента кода
-        $pos = strpos($content, '</div>');
+                        // находим конец необходимого фрагмента кода
+                        $pos = strpos($content, '</div>');
 
-        // отрезаем нужное количество символов от конца фрагмента
-        $content = substr($content, 0, $pos);
+                        // отрезаем нужное количество символов от конца фрагмента
+                        $content = substr($content, 0, $pos);
 
-        //если в нужном контенте встречается не нужный кусок текста, то его вырезаем
-        $content = str_replace('текст, который нужно вырезать','', $content);
+                        //если в нужном контенте встречается не нужный кусок текста, то его вырезаем
+                        $content = str_replace('текст, который нужно вырезать','', $content);
 
-        // выводим необходимый контент
-        echo ('<div>Погода с яндекса в Перми </div>' .$content);
-        ?>
+                        // выводим необходимый контент
+                        echo $content;
+                        ?>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
     </div>
 
 </body>
