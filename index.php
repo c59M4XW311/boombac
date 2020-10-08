@@ -15,18 +15,7 @@
     <title>Boombac</title>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div class="alert alert-primary" role="alert">
-                Добавил bootstrap
-            </div>
-        </div>
-    </header>
-    <div class="container">
-        <span>Текущая дата на php -</span>
-        <?php echo date("d/m/Y");?>
-    </div>
-    <div class=" container" >
+    <div class=" container card-weather" >
         <div class="card">
             <h5 class="card-header">Погода</h5>
             <div class="card-body">
