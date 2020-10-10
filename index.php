@@ -15,56 +15,22 @@
     <title>Boombac</title>
 </head>
 <body>
-    <div class="container card-weather">
-        <div class="card">
-            <h5 class="card-header">Погода</h5>
-            <div class="card-body">
-                <h5 class="card-title">Текущая дата <?php echo date("d/m/Y");?></h5>
-                <div class="data_ya">
-                    <p class="card-text"><span>Температура за окном  </span>
-                        <?php
-                        // с кодировкой возможны проблемы, поэтому если вдруг появятся каркозябры, попробуйте добавить следующую строчку кода
-                        header('Content-Type: text/html; charset=utf-8');
-
-                        // сторонняя страница сайта, с которой будем брать контент.
-                        $content = file_get_contents('http://yandex.ru');
-
-                        // определяем начало необходимого фрагмента кода, до которого мы удалим весь контент
-                        $pos = strpos($content, '<div class="weather__temp">');
-
-                        // удаляем все до нужного фрагмента
-                        $content = substr($content, $pos);
-
-                        // находим конец необходимого фрагмента кода
-                        $pos = strpos($content, '</div>');
-
-                        // отрезаем нужное количество символов от конца фрагмента
-                        $content = substr($content, 0, $pos);
-
-                        //если в нужном контенте встречается не нужный кусок текста, то его вырезаем
-                        $content = str_replace('текст, который нужно вырезать','', $content);
-
-                        // выводим необходимый контент
-                        echo $content."<br>";
-                        ?>
-                        <?php
-
-                        require_once 'connect_db.php';
-                        $conn = OpenCon();
-
-                        if ($result = mysqli_query($conn, "SELECT name FROM boombac.data")) {
-                            while($row = $result->fetch_assoc()) {
-                                echo "Name: " . $row["name"]."<br>";
-                            }
-                        }
-                        CloseCon($conn);
-                        ?>
-                    </p>
-                </div>
-
+    <div class="container auth">
+        <div class="row">
+            <div class="col-sm-3">
+                <form method="post">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Логин</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="login">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Пароль</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+                    </div>
+                    <button type="submit" class="btn btn-primary" formaction="/boombac/authorization.php">Войти</button>
+                </form>
             </div>
         </div>
-
     </div>
 
 </body>
