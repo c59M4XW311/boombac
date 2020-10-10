@@ -15,7 +15,7 @@
     <title>Boombac</title>
 </head>
 <body>
-    <div class=" container card-weather" >
+    <div class="container card-weather">
         <div class="card">
             <h5 class="card-header">Погода</h5>
             <div class="card-body">
@@ -45,7 +45,22 @@
                         $content = str_replace('текст, который нужно вырезать','', $content);
 
                         // выводим необходимый контент
-                        echo $content;
+                        echo $content."<br>";
+                        ?>
+                        <?php
+                        $link = new mysqli('localhost', 'boombac', 'boombac');
+
+                        if ($link->connect_error) {
+                            die("Connection failed: " . $link->connect_error);
+                        }
+                        echo "Connected successfully"."<br>";
+
+                        if ($result = mysqli_query($link, "SELECT name FROM boombac.data")) {
+                            while($row = $result->fetch_assoc()) {
+                                echo "Name: " . $row["name"]."<br>";
+                            }
+                        }
+                        $link -> close();
                         ?>
                     </p>
                 </div>
