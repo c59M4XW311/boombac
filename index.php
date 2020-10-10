@@ -48,19 +48,16 @@
                         echo $content."<br>";
                         ?>
                         <?php
-                        $link = new mysqli('localhost', 'boombac', 'boombac');
 
-                        if ($link->connect_error) {
-                            die("Connection failed: " . $link->connect_error);
-                        }
-                        echo "Connected successfully"."<br>";
+                        require_once 'connect_db.php';
+                        $conn = OpenCon();
 
-                        if ($result = mysqli_query($link, "SELECT name FROM boombac.data")) {
+                        if ($result = mysqli_query($conn, "SELECT name FROM boombac.data")) {
                             while($row = $result->fetch_assoc()) {
                                 echo "Name: " . $row["name"]."<br>";
                             }
                         }
-                        $link -> close();
+                        CloseCon($conn);
                         ?>
                     </p>
                 </div>
