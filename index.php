@@ -1,3 +1,15 @@
+<?php
+include_once 'class/login.php';
+    if (isset($_POST['go']))
+    {
+        $user = new Login();
+        $log = $_POST['login'];
+        $pass = $_POST['password'];
+        $user -> Entry($log, $pass);
+    }
+?>
+
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -18,16 +30,16 @@
     <div class="container auth">
         <div class="row">
             <div class="col-sm-3">
-                <form method="post">
+                <form method="post" action="">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Логин</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="login">
+                        <input type="text" class="form-control" id="exampleInputEmail1" required aria-describedby="emailHelp" name="login">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Пароль</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+                        <input type="password" class="form-control" required id="exampleInputPassword1" name="password">
                     </div>
-                    <button type="submit" class="btn btn-primary" formaction="/boombac/authorization.php">Войти</button>
+                    <input type="submit" value="Войти" name="go" class="btn">
                 </form>
             </div>
         </div>
